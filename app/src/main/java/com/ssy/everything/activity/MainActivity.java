@@ -1,5 +1,6 @@
-package com.ssy.everything;
+package com.ssy.everything.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -9,17 +10,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.ssy.everything.R;
 import com.ssy.everything.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.R.attr.tag;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
@@ -33,7 +34,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
 
-    private NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener;
+    private ImageView ivAvatar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class MainActivity extends BaseActivity {
         initListener();
     }
 
+    private NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener;
+
     private void initListener() {
         navigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressWarnings("StatementWithEmptyBody")
@@ -53,17 +57,11 @@ public class MainActivity extends BaseActivity {
 
                 if (id == R.id.nav_camera) {
                     // Handle the camera action
-                    Log.i(TAG,"nav_camera");
                 } else if (id == R.id.nav_gallery) {
-                    Log.i(TAG,"nav_gallery");
                 } else if (id == R.id.nav_slideshow) {
-                    Log.i(TAG,"nav_slideshow");
                 } else if (id == R.id.nav_manage) {
-                    Log.i(TAG,"nav_manage");
                 } else if (id == R.id.nav_share) {
-                    Log.i(TAG,"nav_share");
                 } else if (id == R.id.nav_send) {
-                    Log.i(TAG,"nav_send");
                 }
 
                 drawer.closeDrawer(GravityCompat.START);
@@ -72,6 +70,13 @@ public class MainActivity extends BaseActivity {
             }
         };
         navigationView.setNavigationItemSelectedListener(navigationItemSelectedListener);
+
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, UserActivity.class));
+            }
+        });
     }
 
     private void initView() {
@@ -80,6 +85,8 @@ public class MainActivity extends BaseActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
+
 
     }
 
