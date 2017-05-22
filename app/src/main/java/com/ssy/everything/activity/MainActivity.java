@@ -14,9 +14,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.ssy.everything.R;
 import com.ssy.everything.base.BaseActivity;
+import com.ssy.everything.image.skip_cer_verify.OkHttpUrlLoader;
+import com.ssy.everything.image.skip_cer_verify.UnsafeOkHttpClient;
+
+import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +40,14 @@ public class MainActivity extends BaseActivity {
     NavigationView navigationView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
+    @BindView(R.id.tv1)
+    TextView tv1;
+    @BindView(R.id.tv2)
+    TextView tv2;
+    @BindView(R.id.imageView1)
+    ImageView imageView1;
+    @BindView(R.id.imageView2)
+    ImageView imageView2;
 
     private ImageView ivAvatar;
 
@@ -121,9 +136,21 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.fab)
-    public void onViewClicked() {
-        Snackbar.make(fab, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+    @OnClick({R.id.tv1, R.id.tv2, R.id.fab})
+    public void onViewClicked(View view) {
+
+        switch (view.getId()) {
+            case R.id.tv1:
+                tv1.setText("start");
+                Glide.with(this).load("https://192.168.110.159/static/skins/default/img/login-switch/s1.png").into(imageView1);
+                break;
+            case R.id.tv2:
+
+                break;
+            case R.id.fab:
+                Snackbar.make(fab, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                break;
+        }
     }
 }

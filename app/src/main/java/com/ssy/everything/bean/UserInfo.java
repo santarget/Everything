@@ -1,4 +1,4 @@
-package com.ssy.everything.model;
+package com.ssy.everything.bean;
 
 /**
  * Created by ssy on 2017/5/19.
