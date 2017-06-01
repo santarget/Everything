@@ -5,11 +5,6 @@ package com.ssy.everything.view;
  */
 
 public interface BaseView {
-    void showProgress(String msg);
-
-    void showProgress(String msg, int progress);
-
-    void hideProgress();
 
     void close();
 }
