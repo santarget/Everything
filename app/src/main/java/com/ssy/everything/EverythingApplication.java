@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.ssy.everything.image.skip_cer_verify.OkHttpUrlLoader;
 import com.ssy.everything.image.skip_cer_verify.UnsafeOkHttpClient;
 
 import java.io.InputStream;
@@ -21,6 +22,10 @@ public class EverythingApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        //Glide绕过https安全验证
+        Glide.get(this).register(GlideUrl.class, InputStream.class,
+                new OkHttpUrlLoader.Factory(UnsafeOkHttpClient.getUnsafeOkHttpClient()));
     }
 
     public static EverythingApplication getInstance() {

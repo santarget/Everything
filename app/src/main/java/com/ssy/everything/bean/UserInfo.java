@@ -1,12 +1,16 @@
 package com.ssy.everything.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by ssy on 2017/5/19.
  */
 
-public class UserInfo {
+public class UserInfo implements Serializable {
+    private static final long serialVersionUID = -3662201601613187010L;
     String userName;
     String nickName;
+    String phone;
     boolean gender;//true M,false F
     int age;
     String email;
