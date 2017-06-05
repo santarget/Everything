@@ -1,13 +1,11 @@
-package com.ssy.everything.presenter;
+package com.ssy.everything.base;
 
 /**
  * Created by ssy on 2017/5/5.
  */
 
+
 import android.support.annotation.NonNull;
-
-import com.ssy.everything.view.BaseView;
-
 
 /**
  * Created by Administrator on 2016/3/25.
