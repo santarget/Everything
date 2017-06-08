@@ -1,4 +1,4 @@
-package com.ssy.everything.mvp.view.activity;
+package com.ssy.everything.feature.home.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

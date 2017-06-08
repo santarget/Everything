@@ -1,4 +1,4 @@
-package com.ssy.everything.mvp.view.activity;
+package com.ssy.everything.feature.home.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.ssy.everything.R;
 import com.ssy.everything.base.BaseActivity;
+import com.ssy.everything.feature.news.view.activity.NewsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +79,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, UserActivity.class));
+                drawer.closeDrawer(GravityCompat.START);
             }
         });
     }

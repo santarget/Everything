@@ -1,17 +1,13 @@
-package com.ssy.everything.mvp.model;
+package com.ssy.everything.feature.news.model;
 
 import com.ssy.everything.base.BaseModel;
 import com.ssy.everything.bean.NewsInfo;
 import com.ssy.everything.bean.NewsResponse;
 import com.ssy.everything.constant.Constants;
-import com.ssy.everything.util.ListUtils;
-import com.ssy.everything.util.StringUtils;
 
 import java.util.ArrayList;
 
 import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 

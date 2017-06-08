@@ -1,4 +1,4 @@
-package com.ssy.everything.mvp.view.decoration;
+package com.ssy.everything.feature.news.view.decoration;
 
 import android.content.Context;
 import android.content.res.TypedArray;

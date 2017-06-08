@@ -1,20 +1,21 @@
-package com.ssy.everything.mvp.view.activity;
+package com.ssy.everything.feature.news.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ssy.everything.R;
 import com.ssy.everything.base.BaseActivity;
 import com.ssy.everything.bean.NewsInfo;
-import com.ssy.everything.mvp.presenter.NewsPresenter;
-import com.ssy.everything.mvp.view.adapter.NewsAdapter;
-import com.ssy.everything.mvp.view.decoration.NewsItemDecoration;
-import com.ssy.everything.mvp.view.iview.INewsView;
+import com.ssy.everything.feature.news.presenter.NewsPresenter;
+import com.ssy.everything.feature.news.view.adapter.NewsAdapter;
+import com.ssy.everything.feature.news.view.decoration.NewsItemDecoration;
+import com.ssy.everything.feature.news.view.iview.INewsView;
 import com.ssy.everything.util.ListUtils;
 
 import java.util.ArrayList;
@@ -42,14 +43,15 @@ public class NewsActivity extends BaseActivity implements INewsView {
         ButterKnife.bind(this);
         newsPresenter = new NewsPresenter(this, "top");
         srlRoot.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryDark));
-        initListener();
+
         initRecyclerView();
+        initListener();
         initData();
     }
 
     private void initData() {
-        newsPresenter.loadData();
         srlRoot.setRefreshing(true);
+        newsPresenter.loadData();
     }
 
     private void initRecyclerView() {
@@ -68,6 +70,16 @@ public class NewsActivity extends BaseActivity implements INewsView {
             @Override
             public void onRefresh() {
                 newsPresenter.loadNewData();
+            }
+        });
+        adapter.setOnItemClickListener(new NewsAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, NewsInfo info) {
+                Intent intent = new Intent(NewsActivity.this, NewsDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("news", info);
+                intent.putExtras(bundle);
+                NewsActivity.this.startActivity(intent);
             }
         });
     }
@@ -96,6 +108,12 @@ public class NewsActivity extends BaseActivity implements INewsView {
         } else {
             Toast.makeText(this, "没有更多资讯", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void stopTooMuchRequest() {
+        Toast.makeText(this, "您的请求太频繁，请稍候再试", Toast.LENGTH_SHORT).show();
+        srlRoot.setRefreshing(false);
     }
 
 }

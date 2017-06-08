@@ -1,6 +1,8 @@
-package com.ssy.everything.mvp.view.adapter;
+package com.ssy.everything.feature.news.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ssy.everything.R;
 import com.ssy.everything.bean.NewsInfo;
+import com.ssy.everything.feature.news.view.activity.NewsActivity;
+import com.ssy.everything.feature.news.view.activity.NewsDetailActivity;
 import com.ssy.everything.util.ListUtils;
 import com.ssy.everything.util.StringUtils;
 
@@ -34,7 +38,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
     private OnRecyclerViewItemClickListener mOnItemClickListener;
 
     public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, NewsInfo info);
     }
 
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
@@ -56,7 +60,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
             notifyDataSetChanged();
         } else {
             this.newsInfos.addAll(0, newsInfos);
-            notifyItemRangeInserted(0, newsInfos.size() - 1);
+            notifyItemRangeInserted(0, newsInfos.size());
         }
 
     }
@@ -94,7 +98,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(v, position);
+                    mOnItemClickListener.onItemClick(v, newsInfos.get(position));
                 }
             }
         });

@@ -1,4 +1,4 @@
-package com.ssy.everything.mvp.view.iview;
+package com.ssy.everything.feature.news.view.iview;
 
 import com.ssy.everything.base.BaseView;
 import com.ssy.everything.bean.NewsInfo;
@@ -12,5 +12,7 @@ import java.util.ArrayList;
 public interface INewsView extends BaseView {
 
     void showData(ArrayList<NewsInfo> newsInfos);
+
+    void stopTooMuchRequest();
 
 }

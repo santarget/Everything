@@ -1,23 +1,20 @@
-package com.ssy.everything.mvp.presenter;
+package com.ssy.everything.feature.news.presenter;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.ssy.everything.base.BasePresenter;
 import com.ssy.everything.base.BaseView;
 import com.ssy.everything.bean.NewsInfo;
-import com.ssy.everything.bean.NewsResponse;
-import com.ssy.everything.mvp.model.NewsModel;
-import com.ssy.everything.mvp.view.iview.INewsView;
+import com.ssy.everything.feature.news.model.NewsModel;
+import com.ssy.everything.feature.news.view.iview.INewsView;
+import com.ssy.everything.util.CommonUtils;
 import com.ssy.everything.util.ListUtils;
 import com.ssy.everything.util.StringUtils;
 
 import java.util.ArrayList;
 
-import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -31,7 +28,7 @@ public class NewsPresenter implements BasePresenter {
     private INewsView iNewsView;
     private ArrayList<NewsInfo> newsInfoList;
     private final String type;
-
+    private long lastLoadTimeStamp;//控制频繁刷新的变量
 
     public NewsPresenter(INewsView iNewsView, String type) {
         newsModel = new NewsModel();
@@ -82,7 +79,10 @@ public class NewsPresenter implements BasePresenter {
      * 下拉刷新
      */
     public void loadNewData() {
-        if (!StringUtils.isEmpty(type)) {
+        if (CommonUtils.isLess(lastLoadTimeStamp, 3)) {
+            iNewsView.stopTooMuchRequest();
+        } else if (!StringUtils.isEmpty(type)) {
+            lastLoadTimeStamp = System.currentTimeMillis();
             newsModel.getNetworkData(type)
                     .observeOn(Schedulers.newThread())
                     .map(new Func1<ArrayList<NewsInfo>, ArrayList<NewsInfo>>() {
