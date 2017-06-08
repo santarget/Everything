@@ -107,18 +107,14 @@ public class NewsAdapter extends RecyclerView.Adapter {
             ViewHolderOnePic viewHolder = (ViewHolderOnePic) holder;
             viewHolder.tvTitle.setText(info.getTitle());
             viewHolder.tvDesc.setText(info.getAuthor_name() + "  " + info.getDate());
-            Glide.with(context).load(info.getThumbnail_pic_s()).placeholder(R.mipmap.ic_launcher)
-                    .into(viewHolder.ivPic);
+            loadImage(info.getThumbnail_pic_s(), viewHolder.ivPic);
         } else if (holder instanceof ViewHolderThreePic) {
             ViewHolderThreePic viewHolder = (ViewHolderThreePic) holder;
             viewHolder.tvTitle.setText(info.getTitle());
             viewHolder.tvDesc.setText(info.getAuthor_name() + "  " + info.getDate());
-            Glide.with(context).load(info.getThumbnail_pic_s()).placeholder(R.mipmap.ic_launcher)
-                    .into(viewHolder.ivPic1);
-            Glide.with(context).load(info.getThumbnail_pic_s02()).placeholder(R.mipmap.ic_launcher)
-                    .into(viewHolder.ivPic2);
-            Glide.with(context).load(info.getThumbnail_pic_s03()).placeholder(R.mipmap.ic_launcher)
-                    .into(viewHolder.ivPic3);
+            loadImage(info.getThumbnail_pic_s(), viewHolder.ivPic1);
+            loadImage(info.getThumbnail_pic_s02(), viewHolder.ivPic2);
+            loadImage(info.getThumbnail_pic_s03(), viewHolder.ivPic3);
         } else if (holder instanceof ViewHolderAd) {
 
         }
@@ -141,6 +137,11 @@ public class NewsAdapter extends RecyclerView.Adapter {
         } else {
             return TYPE_ONE_PIC;
         }
+    }
+
+    private void loadImage(String url, ImageView iv) {
+        Glide.with(context).load(url).placeholder(R.mipmap.place_holder_news).error(R.mipmap.error_news)
+                .fitCenter().dontAnimate().into(iv);
     }
 
     static class ViewHolderNoPic extends RecyclerView.ViewHolder {

@@ -60,7 +60,7 @@ public class NewsActivity extends BaseActivity implements INewsView {
         //设置Item增加、移除动画
 //        rvNews.setItemAnimator(new DefaultItemAnimator());
 //        //添加分割线
-        rvNews.addItemDecoration(new NewsItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        rvNews.addItemDecoration(new NewsItemDecoration(this, LinearLayoutManager.HORIZONTAL));
     }
 
     private void initListener() {

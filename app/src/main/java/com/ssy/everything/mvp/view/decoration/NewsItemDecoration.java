@@ -11,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.ssy.everything.EverythingApplication;
+import com.ssy.everything.util.CommonUtils;
+
 /**
  * Created by ssy on 2017/6/8.
  */
@@ -22,6 +25,7 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
     private int mDividerHeight = 2;//分割线高度，默认为1px
     private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
+    private int paddingHorizontal = CommonUtils.dpToPxInt(EverythingApplication.getInstance(), 12);
 
     /**
      * 默认分割线：高度为2px，颜色为灰色
@@ -69,6 +73,9 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
         mPaint.setStyle(Paint.Style.FILL);
     }
 
+    public void setPaddingHorizontal(int paddingHorizontal) {
+        this.paddingHorizontal = paddingHorizontal;
+    }
 
     //获取分割线尺寸
     @Override
@@ -99,7 +106,7 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
             final int top = child.getBottom() + layoutParams.bottomMargin;
             final int bottom = top + mDividerHeight;
             if (mDivider != null) {
-                mDivider.setBounds(left, top, right, bottom);
+                mDivider.setBounds(left + paddingHorizontal, top, right - paddingHorizontal, bottom);
                 mDivider.draw(canvas);
             }
             if (mPaint != null) {
