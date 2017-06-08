@@ -5,7 +5,7 @@ package com.ssy.everything.base;
  */
 
 public interface BaseView {
-    void onFail();
+    void onFailure();
 
     void onSuccess();
 }

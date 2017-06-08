@@ -2,25 +2,42 @@ package com.ssy.everything.mvp.model;
 
 import com.ssy.everything.base.BaseModel;
 import com.ssy.everything.bean.NewsInfo;
-import com.ssy.everything.network.NetWork;
+import com.ssy.everything.bean.NewsResponse;
+import com.ssy.everything.constant.Constants;
+import com.ssy.everything.util.ListUtils;
+import com.ssy.everything.util.StringUtils;
+
+import java.util.ArrayList;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+
+import static com.ssy.everything.network.NetWork.getNewsApi;
 
 /**
  * Created by ssy on 2017/6/5.
  */
 
 public class NewsModel implements BaseModel {
+
     @Override
     public void loadData() {
 
     }
 
-    public Observable<NewsInfo> getNetworkData() {
-        return NetWork.getGankApi().getRandomBeauties(1)
+    public Observable<ArrayList<NewsInfo>> getNetworkData(String type) {
+        return getNewsApi().getNews(type, Constants.APPKEY_NEWS)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .map(new Func1<NewsResponse, ArrayList<NewsInfo>>() {
+                    @Override
+                    public ArrayList<NewsInfo> call(NewsResponse newsResponse) {
+                        return newsResponse.getResult().getData();
+                    }
+                });
+
     }
+
 }
