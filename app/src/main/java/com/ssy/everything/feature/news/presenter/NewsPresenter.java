@@ -1,9 +1,6 @@
 package com.ssy.everything.feature.news.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.ssy.everything.base.BasePresenter;
-import com.ssy.everything.base.BaseView;
 import com.ssy.everything.bean.NewsInfo;
 import com.ssy.everything.feature.news.model.NewsModel;
 import com.ssy.everything.feature.news.view.iview.INewsView;
@@ -14,9 +11,11 @@ import com.ssy.everything.util.StringUtils;
 import java.util.ArrayList;
 
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by ssy on 2017/6/5.
@@ -30,24 +29,27 @@ public class NewsPresenter implements BasePresenter {
     private final String type;
     private long lastLoadTimeStamp;//控制频繁刷新的变量
 
+    private CompositeSubscription mSubscriptions;
+
     public NewsPresenter(INewsView iNewsView, String type) {
         newsModel = new NewsModel();
+        mSubscriptions = new CompositeSubscription();
         this.iNewsView = iNewsView;
         this.type = type;
     }
 
     @Override
-    public void attachView(@NonNull BaseView view) {
-
+    public void subscribe() {
+        loadData();
     }
 
     @Override
-    public void detachView() {
-
+    public void unsubscribe() {
+        mSubscriptions.clear();
     }
 
-    public void loadData() {
-        newsModel.getNetworkData(type)
+    private void loadData() {
+        Subscription subscription = newsModel.getNetworkData(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ArrayList<NewsInfo>>() {
                     @Override
@@ -73,6 +75,7 @@ public class NewsPresenter implements BasePresenter {
                         super.onStart();
                     }
                 });
+        mSubscriptions.add(subscription);
     }
 
     /**
@@ -83,7 +86,7 @@ public class NewsPresenter implements BasePresenter {
             iNewsView.stopTooMuchRequest();
         } else if (!StringUtils.isEmpty(type)) {
             lastLoadTimeStamp = System.currentTimeMillis();
-            newsModel.getNetworkData(type)
+            Subscription subscription = newsModel.getNetworkData(type)
                     .observeOn(Schedulers.newThread())
                     .map(new Func1<ArrayList<NewsInfo>, ArrayList<NewsInfo>>() {
 
@@ -127,6 +130,7 @@ public class NewsPresenter implements BasePresenter {
                             iNewsView.showData(newsInfos);
                         }
                     });
+            mSubscriptions.add(subscription);
         }
     }
 
@@ -136,5 +140,6 @@ public class NewsPresenter implements BasePresenter {
     public void loadMore() {
 
     }
+
 
 }

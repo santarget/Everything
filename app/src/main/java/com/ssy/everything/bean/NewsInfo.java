@@ -114,12 +114,4 @@ public class NewsInfo implements Serializable {
                 ", thumbnail_pic_s03='" + thumbnail_pic_s03 + '\'' +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof NewsInfo) {
-            return ((NewsInfo) obj).getUniquekey().equals(uniquekey);
-        }
-        return false;
-    }
 }

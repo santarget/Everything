@@ -46,12 +46,9 @@ public class NewsActivity extends BaseActivity implements INewsView {
 
         initRecyclerView();
         initListener();
-        initData();
-    }
 
-    private void initData() {
         srlRoot.setRefreshing(true);
-        newsPresenter.loadData();
+        newsPresenter.subscribe();
     }
 
     private void initRecyclerView() {
@@ -116,4 +113,9 @@ public class NewsActivity extends BaseActivity implements INewsView {
         srlRoot.setRefreshing(false);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        newsPresenter.unsubscribe();
+    }
 }
