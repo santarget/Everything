@@ -9,10 +9,14 @@ import com.ssy.everything.util.ListUtils;
 import com.ssy.everything.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -138,8 +142,24 @@ public class NewsPresenter implements BasePresenter {
      * 上拉加载更多
      */
     public void loadMore() {
-
+        Subscription subscription = Observable.just(newsInfoList.get(0), newsInfoList.get(1), newsInfoList.get(2))
+                .subscribeOn(Schedulers.newThread())
+                .delay(1, TimeUnit.SECONDS)
+                .map(new Func1<NewsInfo, ArrayList<NewsInfo>>() {
+                    @Override
+                    public ArrayList<NewsInfo> call(NewsInfo newsInfo) {
+                        ArrayList<NewsInfo> moreInfos = new ArrayList<>();
+                        moreInfos.add(newsInfo);
+                        return moreInfos;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ArrayList<NewsInfo>>() {
+                    @Override
+                    public void call(ArrayList<NewsInfo> newsInfos) {
+                        iNewsView.showMoreData(newsInfos);
+                    }
+                });
+        mSubscriptions.add(subscription);
     }
-
-
 }

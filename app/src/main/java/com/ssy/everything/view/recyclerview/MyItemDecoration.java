@@ -1,4 +1,4 @@
-package com.ssy.everything.feature.news.view.decoration;
+package com.ssy.everything.view.recyclerview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -18,7 +18,7 @@ import com.ssy.everything.util.CommonUtils;
  * Created by ssy on 2017/6/8.
  */
 
-public class NewsItemDecoration extends RecyclerView.ItemDecoration {
+public class MyItemDecoration extends RecyclerView.ItemDecoration {
 
     private Paint mPaint;
     private Drawable mDivider;
@@ -33,7 +33,7 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
      * @param context
      * @param orientation 列表方向
      */
-    public NewsItemDecoration(Context context, int orientation) {
+    public MyItemDecoration(Context context, int orientation) {
         if (orientation != LinearLayoutManager.VERTICAL && orientation != LinearLayoutManager.HORIZONTAL) {
             throw new IllegalArgumentException("请输入正确的参数！");
         }
@@ -51,7 +51,7 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
      * @param orientation 列表方向
      * @param drawableId  分割线图片
      */
-    public NewsItemDecoration(Context context, int orientation, int drawableId) {
+    public MyItemDecoration(Context context, int orientation, int drawableId) {
         this(context, orientation);
         mDivider = ContextCompat.getDrawable(context, drawableId);
         mDividerHeight = mDivider.getIntrinsicHeight();
@@ -65,7 +65,7 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
      * @param dividerHeight 分割线高度
      * @param dividerColor  分割线颜色
      */
-    public NewsItemDecoration(Context context, int orientation, int dividerHeight, int dividerColor) {
+    public MyItemDecoration(Context context, int orientation, int dividerHeight, int dividerColor) {
         this(context, orientation);
         mDividerHeight = dividerHeight;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

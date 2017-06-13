@@ -135,3 +135,20 @@
   public *;
 }
 
+#rx
+-dontwarn rx.**
+-keepclassmembers class rx.** { *; }
+
+#Retrofit
+-dontwarn retrofit.**
+-keep class retrofit.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+# Gson
+-keep class sun.misc.Unsafe { *; }
+-keep class cn.howie.base.data.** { *; }
+-keep class cn.howie.base.bean.** { *; }
+
+
+

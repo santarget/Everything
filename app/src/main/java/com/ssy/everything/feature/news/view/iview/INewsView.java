@@ -15,4 +15,6 @@ public interface INewsView extends BaseView {
 
     void stopTooMuchRequest();
 
+    void showMoreData(ArrayList<NewsInfo> newsInfos);
+
 }

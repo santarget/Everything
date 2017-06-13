@@ -2,10 +2,12 @@ package com.ssy.everything.feature.news.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,7 +16,7 @@ import com.ssy.everything.base.BaseActivity;
 import com.ssy.everything.bean.NewsInfo;
 import com.ssy.everything.feature.news.presenter.NewsPresenter;
 import com.ssy.everything.feature.news.view.adapter.NewsAdapter;
-import com.ssy.everything.feature.news.view.decoration.NewsItemDecoration;
+import com.ssy.everything.view.recyclerview.MyItemDecoration;
 import com.ssy.everything.feature.news.view.iview.INewsView;
 import com.ssy.everything.util.ListUtils;
 
@@ -41,14 +43,19 @@ public class NewsActivity extends BaseActivity implements INewsView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
         ButterKnife.bind(this);
-        newsPresenter = new NewsPresenter(this, "top");
-        srlRoot.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryDark));
 
+        initSwipeRefreshLayout();
         initRecyclerView();
         initListener();
 
-        srlRoot.setRefreshing(true);
+        newsPresenter = new NewsPresenter(this, "top");
         newsPresenter.subscribe();
+    }
+
+    private void initSwipeRefreshLayout() {
+        srlRoot.setProgressBackgroundColorSchemeResource(R.color.colorPrimary);
+        srlRoot.setColorSchemeColors(getResources().getColor(android.R.color.white));
+        srlRoot.setRefreshing(true);
     }
 
     private void initRecyclerView() {
@@ -59,7 +66,8 @@ public class NewsActivity extends BaseActivity implements INewsView {
         //设置Item增加、移除动画
 //        rvNews.setItemAnimator(new DefaultItemAnimator());
 //        //添加分割线
-        rvNews.addItemDecoration(new NewsItemDecoration(this, LinearLayoutManager.HORIZONTAL));
+        rvNews.addItemDecoration(new MyItemDecoration(this, LinearLayoutManager.HORIZONTAL));
+
     }
 
     private void initListener() {
@@ -77,6 +85,39 @@ public class NewsActivity extends BaseActivity implements INewsView {
                 bundle.putSerializable("news", info);
                 intent.putExtras(bundle);
                 NewsActivity.this.startActivity(intent);
+            }
+        });
+        rvNews.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.i("aaa", "onScrollStateChanged:" + newState);
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItemPosition + 1 == adapter.getItemCount()) {
+//                    Log.d("test", "loading executed");
+//
+//                    boolean isRefreshing = srlRoot.isRefreshing();
+//                    if (isRefreshing) {
+//                        adapter.notifyItemRemoved(adapter.getItemCount());
+//                        return;
+//                    }
+//                    //load data
+//                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItemPosition = ((LinearLayoutManager) (recyclerView.getLayoutManager())).findLastVisibleItemPosition();
+                if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
+                    Log.d("test", "loading executed");
+
+                    boolean isRefreshing = srlRoot.isRefreshing();
+                    if (isRefreshing) {
+                        adapter.notifyItemRemoved(adapter.getItemCount());
+                        return;
+                    }
+                    newsPresenter.loadMore();
+                }
             }
         });
     }
@@ -100,7 +141,7 @@ public class NewsActivity extends BaseActivity implements INewsView {
                 adapter = new NewsAdapter(this, newsInfos);
                 rvNews.setAdapter(adapter);
             } else {
-                adapter.setNewsInfos(newsInfos);
+                adapter.setNewsInfos(newsInfos, false);
             }
         } else {
             Toast.makeText(this, "没有更多资讯", Toast.LENGTH_SHORT).show();
@@ -111,6 +152,11 @@ public class NewsActivity extends BaseActivity implements INewsView {
     public void stopTooMuchRequest() {
         Toast.makeText(this, "您的请求太频繁，请稍候再试", Toast.LENGTH_SHORT).show();
         srlRoot.setRefreshing(false);
+    }
+
+    @Override
+    public void showMoreData(ArrayList<NewsInfo> newsInfos) {
+        adapter.setNewsInfos(newsInfos, true);
     }
 
     @Override
