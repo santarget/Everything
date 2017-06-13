@@ -125,7 +125,7 @@ public class NewsActivity extends BaseActivity implements INewsView {
     @Override
     public void onFailure() {
         srlRoot.setRefreshing(false);
-        Toast.makeText(this, "失败", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.fail, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -144,13 +144,13 @@ public class NewsActivity extends BaseActivity implements INewsView {
                 adapter.setNewsInfos(newsInfos, false);
             }
         } else {
-            Toast.makeText(this, "没有更多资讯", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.no_more_data, Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void stopTooMuchRequest() {
-        Toast.makeText(this, "您的请求太频繁，请稍候再试", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.request_too_much, Toast.LENGTH_SHORT).show();
         srlRoot.setRefreshing(false);
     }
 
