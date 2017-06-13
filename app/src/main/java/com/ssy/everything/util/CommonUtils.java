@@ -28,9 +28,4 @@ public class CommonUtils {
     public static int pxToDpCeilInt(Context context, float px) {
         return (int) (pxToDp(context, px) + 0.5f);
     }
-
-    public static boolean isLess(long timeStamp, int second) {
-        return System.currentTimeMillis() - timeStamp <= second * 1000l;
-    }
-
 }

@@ -86,7 +86,7 @@ public class NewsPresenter implements BasePresenter {
      * 下拉刷新
      */
     public void loadNewData() {
-        if (CommonUtils.isLess(lastLoadTimeStamp, 3)) {
+        if (System.currentTimeMillis() - lastLoadTimeStamp <= 3000l) {
             iNewsView.stopTooMuchRequest();
         } else if (!StringUtils.isEmpty(type)) {
             lastLoadTimeStamp = System.currentTimeMillis();
