@@ -29,8 +29,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
     private static final int TYPE_ONE_PIC = 2;
     private static final int TYPE_THREE_PIC = 3;
     private static final int TYPE_AD = 4;
-
-
+    
     private final Context context;
     private ArrayList<NewsInfo> newsInfos;
     private OnRecyclerViewItemClickListener mOnItemClickListener;
@@ -93,10 +92,11 @@ public class NewsAdapter extends RecyclerView.Adapter {
                 view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_2, parent, false);
                 holder = new ViewHolderAd(view);
                 break;
+            default:
+                break;
 
         }
         return holder;
-
     }
 
     @Override

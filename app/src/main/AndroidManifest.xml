@@ -20,16 +20,22 @@
         <activity
             android:name=".feature.home.view.activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppWindowTranslucentStatusTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.home.view.activity.UserActivity" />
-        <activity android:name=".feature.news.view.activity.NewsActivity" />
-        <activity android:name=".feature.news.view.activity.NewsDetailActivity" />
+        <activity
+            android:name=".feature.home.view.activity.UserActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
+            android:name=".feature.news.view.activity.NewsActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
+            android:name=".feature.news.view.activity.NewsDetailActivity"
+            android:theme="@style/AppTheme.Transparent" />
 
     </application>
 

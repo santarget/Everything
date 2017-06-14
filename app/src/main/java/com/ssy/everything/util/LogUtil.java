@@ -3,7 +3,7 @@ package com.ssy.everything.util;
 import android.content.Context;
 import android.util.Log;
 
-import com.ssy.everything.constant.ClientConfig;
+import com.ssy.everything.constant.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,12 +80,12 @@ public final class LogUtil {
     public static void openLog(Context context) {
         initLogFileName();
         try {
-            File pathFile = new File(ClientConfig.LOG_PATH);
+            File pathFile = new File(Config.LOG_PATH);
             if (!pathFile.exists()) {
                 pathFile.mkdirs();
-                Log.d(LOG_TAG, "mkdirs sucess:" + ClientConfig.LOG_PATH);
+                Log.d(LOG_TAG, "mkdirs sucess:" + Config.LOG_PATH);
             } else {
-                deleteOverdueFiles(ClientConfig.LOG_PATH);
+                deleteOverdueFiles(Config.LOG_PATH);
             }
         } catch (Exception e) {
             LogUtil.e(LOG_TAG, "Check file path exception:" + e.toString());
@@ -96,7 +96,7 @@ public final class LogUtil {
         Date CurDate = new Date(System.currentTimeMillis());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = format.format(CurDate);
-        logFileName = ClientConfig.LOG_PATH + "/everything-" + strDate + ".log";
+        logFileName = Config.LOG_PATH + "/everything-" + strDate + ".log";
     }
 
     /**
@@ -349,7 +349,7 @@ public final class LogUtil {
                 initLogFileName();
             }
             File logFile = new File(logFileName);
-            if (!new File(ClientConfig.LOG_PATH).exists()) {
+            if (!new File(Config.LOG_PATH).exists()) {
                 return false;
             }
             if (logFile != null && !logFile.exists()) {

@@ -9,6 +9,8 @@ import com.ssy.everything.image.skip_cer_verify.UnsafeOkHttpClient;
 
 import java.io.InputStream;
 
+import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
+
 /**
  * Created by ssy on 2017/5/19.
  */
@@ -22,6 +24,8 @@ public class EverythingApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        //初始化滑动返回
+        BGASwipeBackManager.getInstance().init(this);
 
         //Glide绕过https安全验证
         Glide.get(this).register(GlideUrl.class, InputStream.class,
