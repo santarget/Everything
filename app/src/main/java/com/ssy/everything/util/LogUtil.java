@@ -3,7 +3,7 @@ package com.ssy.everything.util;
 import android.content.Context;
 import android.util.Log;
 
-import com.ssy.everything.constant.Config;
+import com.ssy.everything.common.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;

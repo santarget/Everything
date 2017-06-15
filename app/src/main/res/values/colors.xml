@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#1C87FF</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorActivityBackground">#FAFAFA</color>
+    <color name="newsBottomBar">#F0EEEE</color>
 
     <color name="txt_title">#3C3F41</color>
 

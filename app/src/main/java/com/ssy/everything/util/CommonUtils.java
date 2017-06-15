@@ -1,6 +1,10 @@
 package com.ssy.everything.util;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.Log;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by ssy on 2017/6/8.
@@ -27,5 +31,29 @@ public class CommonUtils {
 
     public static int pxToDpCeilInt(Context context, float px) {
         return (int) (pxToDp(context, px) + 0.5f);
+    }
+    public static boolean hasNavigationBar(Context context) {
+
+        boolean flag = false;
+        Resources rs = context.getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            flag = rs.getBoolean(id);
+        }
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                flag = false;
+            } else if ("0".equals(navBarOverride)) {
+                flag = true;
+            }
+        } catch (Exception e) {
+            Log.w("TAG", e);
+        }
+
+
+        return flag;
     }
 }

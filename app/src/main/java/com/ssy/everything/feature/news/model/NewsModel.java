@@ -3,7 +3,7 @@ package com.ssy.everything.feature.news.model;
 import com.ssy.everything.base.BaseModel;
 import com.ssy.everything.bean.NewsInfo;
 import com.ssy.everything.bean.NewsResponse;
-import com.ssy.everything.constant.Constants;
+import com.ssy.everything.common.Constants;
 
 import java.util.ArrayList;
 

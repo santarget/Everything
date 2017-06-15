@@ -1,4 +1,4 @@
-package com.ssy.everything.constant;
+package com.ssy.everything.common;
 
 /**
  * Created by ssy on 2017/6/6.

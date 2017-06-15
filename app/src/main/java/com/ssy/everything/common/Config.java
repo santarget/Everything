@@ -1,4 +1,4 @@
-package com.ssy.everything.constant;
+package com.ssy.everything.common;
 
 import android.os.Environment;
 
