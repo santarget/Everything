@@ -1,13 +1,20 @@
 package com.ssy.everything.feature.news.view.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ssy.everything.R;
@@ -15,9 +22,10 @@ import com.ssy.everything.base.BaseActivity;
 import com.ssy.everything.bean.NewsInfo;
 import com.ssy.everything.feature.news.presenter.NewsPresenter;
 import com.ssy.everything.feature.news.view.adapter.NewsAdapter;
-import com.ssy.everything.view.recyclerview.MyItemDecoration;
 import com.ssy.everything.feature.news.view.iview.INewsView;
+import com.ssy.everything.util.CommonUtils;
 import com.ssy.everything.util.ListUtils;
+import com.ssy.everything.view.recyclerview.MyItemDecoration;
 
 import java.util.ArrayList;
 
@@ -33,6 +41,16 @@ public class NewsActivity extends BaseActivity implements INewsView {
     RecyclerView rvNews;
     @BindView(R.id.srl_root)
     SwipeRefreshLayout srlRoot;
+    @BindView(R.id.ivBanner)
+    ImageView ivBanner;
+    @BindView(R.id.ivSetting)
+    AppCompatImageView ivSetting;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
 
     private NewsPresenter newsPresenter;
     private NewsAdapter adapter;
@@ -46,6 +64,19 @@ public class NewsActivity extends BaseActivity implements INewsView {
         initSwipeRefreshLayout();
         initRecyclerView();
         initListener();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4 以上版本
+            // 设置 Toolbar 高度为 80dp，适配状态栏
+            ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
+            layoutParams.height = CommonUtils.dpToPxInt(this, 80);
+            toolbar.setLayoutParams(layoutParams);
+        } else { // 4.4 以下版本
+            // 设置 设置图标距离顶部（状态栏最底）为
+            ivSetting.setPadding(ivSetting.getPaddingLeft(),
+                    CommonUtils.dpToPxInt(this, 15),
+                    ivSetting.getPaddingRight(),
+                    ivSetting.getPaddingBottom());
+        }
 
         newsPresenter = new NewsPresenter(this, "top");
         newsPresenter.subscribe();
