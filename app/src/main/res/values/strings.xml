@@ -11,4 +11,10 @@
     <string name="news">News</string>
     <string name="no_more_data">No more information</string>
     <string name="request_too_much">Request too much, please try later.</string>
+    <string name="news_top">Top</string>
+    <string name="news_guoji">World</string>
+    <string name="news_guonei">Home</string>
+    <string name="news_keji">Technology</string>
+    <string name="news_yule">Entertainment</string>
+    <string name="news_tiyu">Sports</string>
 </resources>

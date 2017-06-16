@@ -10,5 +10,11 @@
     <string name="news">新闻</string>
     <string name="no_more_data">没有更多资讯</string>
     <string name="request_too_much">您的请求太频繁，请稍后再试。</string>
+    <string name="news_top">头条</string>
+    <string name="news_guoji">国际</string>
+    <string name="news_guonei">国内</string>
+    <string name="news_keji">科技</string>
+    <string name="news_yule">娱乐</string>
+    <string name="news_tiyu">体育</string>
 
 </resources>

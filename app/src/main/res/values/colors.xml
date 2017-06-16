@@ -7,6 +7,7 @@
     <color name="newsBottomBar">#F0EEEE</color>
 
     <color name="txt_title">#3C3F41</color>
+    <color name="tab_selected">#34C772</color>
 
 
 </resources>
