@@ -87,15 +87,10 @@ public class NewsActivity extends BaseActivity {
                 R.string.news_yule, R.string.news_tiyu};
         adapter = new NewsFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(fragmentList.size());
         tab.setupWithViewPager(viewPager);
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
 
     class NewsFragmentAdapter extends FragmentPagerAdapter {
 
