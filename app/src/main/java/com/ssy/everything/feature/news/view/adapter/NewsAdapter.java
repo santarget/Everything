@@ -29,7 +29,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
     private static final int TYPE_ONE_PIC = 2;
     private static final int TYPE_THREE_PIC = 3;
     private static final int TYPE_AD = 4;
-    
+
     private final Context context;
     private ArrayList<NewsInfo> newsInfos;
     private OnRecyclerViewItemClickListener mOnItemClickListener;
@@ -55,11 +55,11 @@ public class NewsAdapter extends RecyclerView.Adapter {
         if (this.newsInfos == null) {
             this.newsInfos = new ArrayList<>(newsInfos);
             notifyDataSetChanged();
-        } else if (isFoot) {
+        } else if (isFoot) {//加载更多
             this.newsInfos.addAll(newsInfos);
             notifyDataSetChanged();
             notifyItemRemoved(getItemCount());
-        } else {
+        } else {//刷新
             this.newsInfos.addAll(0, newsInfos);
             notifyItemRangeInserted(0, newsInfos.size());
         }

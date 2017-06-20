@@ -5,5 +5,4 @@ package com.ssy.everything.base;
  */
 
 public interface BaseModel {
-    void loadData();
 }

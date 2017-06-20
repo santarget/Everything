@@ -2,14 +2,12 @@ package com.ssy.everything.feature.news.presenter;
 
 import com.ssy.everything.base.BasePresenter;
 import com.ssy.everything.bean.NewsInfo;
-import com.ssy.everything.feature.news.model.NewsModel;
+import com.ssy.everything.feature.news.model.impl.NewsModel;
 import com.ssy.everything.feature.news.view.iview.INewsView;
-import com.ssy.everything.util.CommonUtils;
 import com.ssy.everything.util.ListUtils;
 import com.ssy.everything.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;

@@ -1,8 +1,12 @@
 package com.ssy.everything.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.lang.reflect.Method;
 
@@ -55,5 +59,31 @@ public class CommonUtils {
 
 
         return flag;
+    }
+
+    /**
+     * 动态隐藏软键盘
+     *
+     * @param activity activity
+     */
+    public static void hideSoftInput(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view == null) view = new View(activity);
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    /**
+     * 动态显示软键盘
+     *
+     * @param edit 输入框
+     */
+    public static void showSoftInput(Context context, EditText edit) {
+        edit.setFocusable(true);
+        edit.setFocusableInTouchMode(true);
+        edit.requestFocus();
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(edit, 0);
     }
 }

@@ -1,9 +1,9 @@
-package com.ssy.everything.feature.news.model;
+package com.ssy.everything.feature.news.model.impl;
 
-import com.ssy.everything.base.BaseModel;
 import com.ssy.everything.bean.NewsInfo;
 import com.ssy.everything.bean.NewsResponse;
 import com.ssy.everything.common.Constants;
+import com.ssy.everything.feature.news.model.INewsModel;
 
 import java.util.ArrayList;
 
@@ -17,13 +17,9 @@ import static com.ssy.everything.network.NetWork.getNewsApi;
  * Created by ssy on 2017/6/5.
  */
 
-public class NewsModel implements BaseModel {
+public class NewsModel implements INewsModel {
 
     @Override
-    public void loadData() {
-
-    }
-
     public Observable<ArrayList<NewsInfo>> getNetworkData(String type) {
         return getNewsApi().getNews(type, Constants.APPKEY_NEWS)
                 .subscribeOn(Schedulers.io())
@@ -33,7 +29,6 @@ public class NewsModel implements BaseModel {
                         return newsResponse.getResult().getData();
                     }
                 });
-
     }
-
 }
+
