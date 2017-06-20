@@ -150,5 +150,8 @@
 -keep class cn.howie.base.data.** { *; }
 -keep class cn.howie.base.bean.** { *; }
 
+# Bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{ *; }
 
 

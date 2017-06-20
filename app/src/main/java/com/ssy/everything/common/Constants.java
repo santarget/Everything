@@ -20,4 +20,9 @@ public class Constants {
     public static final String NEWS_CAIJING = "caijing";
     public static final String NEWS_SHISHANG = "shishang";
 
+    /**
+     * bugly
+     */
+    public static final String BUGLY_APP_ID = "67e3184fc4";
+
 }

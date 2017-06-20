@@ -4,8 +4,11 @@ import android.app.Application;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.ssy.everything.common.Constants;
+import com.ssy.everything.common.CrashHandler;
 import com.ssy.everything.image.skip_cer_verify.OkHttpUrlLoader;
 import com.ssy.everything.image.skip_cer_verify.UnsafeOkHttpClient;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.InputStream;
 
@@ -24,6 +27,9 @@ public class EverythingApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_APP_ID, true);//true 开启调试模式
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
         //初始化滑动返回
         BGASwipeBackManager.getInstance().init(this);
 
