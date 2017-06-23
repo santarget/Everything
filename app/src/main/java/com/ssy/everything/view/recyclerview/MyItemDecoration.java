@@ -25,7 +25,7 @@ public class MyItemDecoration extends RecyclerView.ItemDecoration {
     private int mDividerHeight = 2;//分割线高度，默认为1px
     private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
-    private int paddingHorizontal = CommonUtils.dpToPxInt(EverythingApplication.getInstance(), 12);
+    private int paddingHorizontal = CommonUtils.dp2PxInt(EverythingApplication.getInstance(), 12);
 
     /**
      * 默认分割线：高度为2px，颜色为灰色

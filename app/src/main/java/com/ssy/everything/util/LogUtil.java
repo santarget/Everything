@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.ssy.everything.common.Config;
+import com.tencent.bugly.crashreport.BuglyLog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -163,7 +164,7 @@ public final class LogUtil {
                 msg = "$ " + currentTime() + msg + " - " + new Throwable().getStackTrace()[1].toString();
             }
             Log.v(tag, msg);
-
+            BuglyLog.v(tag,msg);
             if (Log_Level_verbose >= logLevel) {
                 if (Log_IN_FILE) {
                     writeIntoFile(LOG_TAG + " v: " + msg);
@@ -196,7 +197,7 @@ public final class LogUtil {
                 info = "$ " + currentTime() + info + " - " + new Throwable().getStackTrace()[1].toString();
             }
             Log.d(tag, info);
-
+            BuglyLog.d(tag,info);
             if (Log_Level_debug >= logLevel) {
                 if (Log_IN_FILE) {
                     writeIntoFile(LOG_TAG + " d: " + info);
@@ -229,7 +230,7 @@ public final class LogUtil {
                 info = "$ " + currentTime() + info + " - " + new Throwable().getStackTrace()[1].toString();
             }
             Log.i(tag, info);
-
+            BuglyLog.i(tag,info);
             if (Log_Level_info >= logLevel) {
                 if (Log_IN_FILE) {
                     writeIntoFile(LOG_TAG + " i: " + info);
@@ -262,7 +263,7 @@ public final class LogUtil {
                 info = "$ " + currentTime() + info + " - " + new Throwable().getStackTrace()[1].toString();
             }
             Log.w(tag, info);
-
+            BuglyLog.w(tag,info);
             if (Log_Level_warn >= logLevel) {
                 if (Log_IN_FILE) {
                     writeIntoFile(LOG_TAG + " w: " + info);
@@ -295,7 +296,7 @@ public final class LogUtil {
                 info = "$ " + currentTime() + info + " - " + new Throwable().getStackTrace()[1].toString();
             }
             Log.e(tag, info);
-
+            BuglyLog.e(tag,info);
             if (Log_Level_error >= logLevel) {
                 if (Log_IN_FILE) {
                     writeIntoFile(LOG_TAG + " e: " + info);

@@ -3,14 +3,19 @@ package com.ssy.everything.feature.news.view.activity;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.ssy.everything.R;
 import com.ssy.everything.base.BaseActivity;
@@ -18,6 +23,7 @@ import com.ssy.everything.bean.NewsInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by ssy on 2017/6/8.
@@ -29,6 +35,10 @@ public class NewsDetailActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.webview)
     WebView webview;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.aivShare)
+    AppCompatImageView aivShare;
 
     private NewsInfo info;
 
@@ -45,13 +55,18 @@ public class NewsDetailActivity extends BaseActivity {
     }
 
     private void initListener() {
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initView() {
         toolbar.setTitle(info.getTitle());
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//toolbar返回箭头
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
@@ -75,6 +90,9 @@ public class NewsDetailActivity extends BaseActivity {
             }
         });
         webview.loadUrl(info.getUrl());
+        MyWebChromeClient webChromeClient = new MyWebChromeClient();
+        webview.setWebChromeClient(webChromeClient);
+
     }
 
     private void initData() {
@@ -123,5 +141,27 @@ public class NewsDetailActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.aivShare)
+    public void onViewClicked() {
+    }
+
+    class MyWebChromeClient extends WebChromeClient {
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            toolbar.setTitle(title);
+
+        }
+
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            if (newProgress == 100) {
+                progressBar.setVisibility(View.INVISIBLE);
+            } else {
+                progressBar.setProgress(newProgress);
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        }
     }
 }

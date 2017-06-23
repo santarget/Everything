@@ -3,8 +3,10 @@ package com.ssy.everything.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -15,27 +17,50 @@ import java.lang.reflect.Method;
  */
 
 public class CommonUtils {
-    public static float dpToPx(Context context, float dp) {
+    public static float dp2Px(Context context, float dp) {
         if (context == null) {
             return -1;
         }
         return dp * context.getResources().getDisplayMetrics().density;
     }
 
-    public static float pxToDp(Context context, float px) {
+    public static float px2Dp(Context context, float px) {
         if (context == null) {
             return -1;
         }
         return px / context.getResources().getDisplayMetrics().density;
     }
 
-    public static int dpToPxInt(Context context, float dp) {
-        return (int) (dpToPx(context, dp) + 0.5f);
+    public static int dp2PxInt(Context context, float dp) {
+        return (int) (dp2Px(context, dp) + 0.5f);
     }
 
-    public static int pxToDpCeilInt(Context context, float px) {
-        return (int) (pxToDp(context, px) + 0.5f);
+    public static int px2DpCeilInt(Context context, float px) {
+        return (int) (px2Dp(context, px) + 0.5f);
     }
+    private static DisplayMetrics getMetrics(Context context) {
+        DisplayMetrics metrics = new DisplayMetrics();
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        wm.getDefaultDisplay().getMetrics(metrics);
+        return metrics;
+    }
+    /**
+     * 获取屏幕宽度 px
+     */
+    public static int getScreenWidth(Context context) {
+        DisplayMetrics dm = getMetrics(context);
+        return dm.widthPixels;
+    }
+
+    /**
+     * 获取屏幕高度 px
+     */
+    public static int getScreenHeight(Context context) {
+        DisplayMetrics dm = getMetrics(context);
+        return dm.heightPixels;
+    }
+
     public static boolean hasNavigationBar(Context context) {
 
         boolean flag = false;
@@ -85,5 +110,19 @@ public class CommonUtils {
         InputMethodManager imm = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(edit, 0);
+    }
+
+    /**
+     * 获取状态栏高度
+     */
+    public static int getStatusBarHeight(Context context) {
+        int statusBarHeight = 38;
+        //获取status_bar_height资源的ID
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
     }
 }
