@@ -5,25 +5,10 @@ package com.ssy.everything.bean;
  */
 
 public class NewsResponse {
-    private String reason;
+    public String reason;
 
-    private NewsResult result;
+    public NewsResult result;
 
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public String getReason() {
-        return this.reason;
-    }
-
-    public NewsResult getResult() {
-        return result;
-    }
-
-    public void setResult(NewsResult result) {
-        this.result = result;
-    }
 
     @Override
     public String toString() {

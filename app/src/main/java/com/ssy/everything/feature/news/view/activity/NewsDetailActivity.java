@@ -1,5 +1,6 @@
 package com.ssy.everything.feature.news.view.activity;
 
+import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.widget.ProgressBar;
 import com.ssy.everything.R;
 import com.ssy.everything.base.BaseActivity;
 import com.ssy.everything.bean.NewsInfo;
+import com.ssy.everything.util.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +48,7 @@ public class NewsDetailActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
+        StatusBarUtil.setColor(this);
         ButterKnife.bind(this);
 
         initData();
@@ -61,10 +64,29 @@ public class NewsDetailActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+        aivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // intent.setType("text/plain"); //纯文本
+            /*
+             * 图片分享 it.setType("image/png"); 　//添加图片 File f = new
+             * File(Environment.getExternalStorageDirectory()+"/name.png");
+             *
+             * Uri uri = Uri.fromFile(f); intent.putExtra(Intent.EXTRA_STREAM,
+             * uri); 　
+             */
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
+                intent.putExtra(Intent.EXTRA_TEXT, webview.getUrl());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(Intent.createChooser(intent, getTitle()));
+            }
+        });
     }
 
     private void initView() {
-        toolbar.setTitle(info.getTitle());
+        toolbar.setTitle(info.title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//toolbar返回箭头
         WebSettings webSettings = webview.getSettings();
@@ -89,7 +111,7 @@ public class NewsDetailActivity extends BaseActivity {
                 // handler.handleMessage(null);    //可做其他处理
             }
         });
-        webview.loadUrl(info.getUrl());
+        webview.loadUrl(info.url);
         MyWebChromeClient webChromeClient = new MyWebChromeClient();
         webview.setWebChromeClient(webChromeClient);
 

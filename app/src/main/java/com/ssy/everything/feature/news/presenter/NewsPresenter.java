@@ -100,9 +100,9 @@ public class NewsPresenter implements BasePresenter {
                             } else {
                                 //重复新闻不添加，判断与之前的第一条新闻一样则之后的都丢弃
                                 ArrayList<NewsInfo> addNewsInfos = new ArrayList<>();
-                                String uniqueKey = newsInfoList.get(0).getUniquekey();
+                                String uniqueKey = newsInfoList.get(0).uniquekey;
                                 for (NewsInfo info : newsInfos) {
-                                    if (uniqueKey.equals(info.getUniquekey())) {
+                                    if (uniqueKey.equals(info.uniquekey)) {
                                         break;
                                     } else {
                                         addNewsInfos.add(info);

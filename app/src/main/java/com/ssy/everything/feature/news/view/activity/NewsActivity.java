@@ -18,10 +18,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.ssy.everything.R;
 import com.ssy.everything.base.BaseActivity;
 import com.ssy.everything.common.Constants;
+import com.ssy.everything.feature.news.presenter.GirlPresenter;
 import com.ssy.everything.feature.news.view.fragment.NewsFragment;
+import com.ssy.everything.feature.news.view.iview.IGirlView;
 import com.ssy.everything.util.CommonUtils;
 
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ import butterknife.ButterKnife;
  * Created by ssy on 2017/6/5.
  */
 
-public class NewsActivity extends BaseActivity {
+public class NewsActivity extends BaseActivity implements IGirlView {
 
     @BindView(R.id.ivBanner)
     ImageView ivBanner;
@@ -66,6 +69,8 @@ public class NewsActivity extends BaseActivity {
     private boolean isBannerBig; // banner 是否是大图
     private boolean isBannerAniming; // banner 放大缩小的动画是否正在执行
 
+    private GirlPresenter girlPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +79,8 @@ public class NewsActivity extends BaseActivity {
 
         init();
         initListener();
+        girlPresenter = new GirlPresenter(this);
+        girlPresenter.subscribe();
     }
 
     private void init() {
@@ -202,5 +209,26 @@ public class NewsActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        girlPresenter.unsubscribe();
+    }
+
+    @Override
+    public void onFailure() {
+        Glide.with(this).load(R.mipmap.defaut_avatar).dontAnimate().into(ivBanner);
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void showNetGirl(String imgUrl) {
+        Glide.with(this).load(imgUrl).dontAnimate().into(ivBanner);
     }
 }

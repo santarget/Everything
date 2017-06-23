@@ -113,20 +113,20 @@ public class NewsAdapter extends RecyclerView.Adapter {
             NewsInfo info = newsInfos.get(position);
             if (holder instanceof ViewHolderNoPic) {
                 ViewHolderNoPic viewHolder = (ViewHolderNoPic) holder;
-                viewHolder.tvTitle.setText(info.getTitle());
-                viewHolder.tvDesc.setText(info.getAuthor_name() + "  " + info.getDate());
+                viewHolder.tvTitle.setText(info.title);
+                viewHolder.tvDesc.setText(info.author_name + "  " + info.date);
             } else if (holder instanceof ViewHolderOnePic) {
                 ViewHolderOnePic viewHolder = (ViewHolderOnePic) holder;
-                viewHolder.tvTitle.setText(info.getTitle());
-                viewHolder.tvDesc.setText(info.getAuthor_name() + "  " + info.getDate());
-                loadImage(info.getThumbnail_pic_s(), viewHolder.ivPic);
+                viewHolder.tvTitle.setText(info.title);
+                viewHolder.tvDesc.setText(info.author_name + "  " + info.date);
+                loadImage(info.thumbnail_pic_s, viewHolder.ivPic);
             } else if (holder instanceof ViewHolderThreePic) {
                 ViewHolderThreePic viewHolder = (ViewHolderThreePic) holder;
-                viewHolder.tvTitle.setText(info.getTitle());
-                viewHolder.tvDesc.setText(info.getAuthor_name() + "  " + info.getDate());
-                loadImage(info.getThumbnail_pic_s(), viewHolder.ivPic1);
-                loadImage(info.getThumbnail_pic_s02(), viewHolder.ivPic2);
-                loadImage(info.getThumbnail_pic_s03(), viewHolder.ivPic3);
+                viewHolder.tvTitle.setText(info.title);
+                viewHolder.tvDesc.setText(info.author_name + "  " + info.date);
+                loadImage(info.thumbnail_pic_s, viewHolder.ivPic1);
+                loadImage(info.thumbnail_pic_s02, viewHolder.ivPic2);
+                loadImage(info.thumbnail_pic_s03, viewHolder.ivPic3);
             } else if (holder instanceof ViewHolderAd) {
 
             }
@@ -146,9 +146,9 @@ public class NewsAdapter extends RecyclerView.Adapter {
             return TYPE_FOOTER;
         } else {
             NewsInfo info = newsInfos.get(position);
-            if (StringUtils.isEmpty(info.getThumbnail_pic_s())) {
+            if (StringUtils.isEmpty(info.thumbnail_pic_s)) {
                 return TYPE_NO_PIC;
-            } else if (!StringUtils.isEmpty(info.getThumbnail_pic_s02()) && !StringUtils.isEmpty(info.getThumbnail_pic_s03())) {
+            } else if (!StringUtils.isEmpty(info.thumbnail_pic_s02) && !StringUtils.isEmpty(info.thumbnail_pic_s03)) {
                 return TYPE_THREE_PIC;
             } else {
                 return TYPE_ONE_PIC;

@@ -31,6 +31,15 @@ public class StatusBarUtil {
     private static final int TAG_KEY_HAVE_SET_OFFSET = -123;
 
     /**
+     * 设置状态栏颜色 默认
+     *
+     * @param activity
+     */
+    public static void setColor(Activity activity) {
+        setColor(activity, 0xFF1C87FF, 0);
+    }
+
+    /**
      * 设置状态栏颜色
      *
      * @param activity 需要设置的 activity

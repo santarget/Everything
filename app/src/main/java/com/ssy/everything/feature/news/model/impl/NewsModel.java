@@ -26,7 +26,7 @@ public class NewsModel implements INewsModel {
                 .map(new Func1<NewsResponse, ArrayList<NewsInfo>>() {
                     @Override
                     public ArrayList<NewsInfo> call(NewsResponse newsResponse) {
-                        return newsResponse.getResult().getData();
+                        return newsResponse.result.data;
                     }
                 });
     }

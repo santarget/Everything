@@ -7,25 +7,10 @@ import java.util.ArrayList;
  */
 
 public class NewsResult {
-    private String stat;
+    public String stat;
 
-    private ArrayList<NewsInfo> data;
+    public ArrayList<NewsInfo> data;
 
-    public void setStat(String stat) {
-        this.stat = stat;
-    }
-
-    public String getStat() {
-        return this.stat;
-    }
-
-    public ArrayList<NewsInfo> getData() {
-        return data;
-    }
-
-    public void setData(ArrayList<NewsInfo> data) {
-        this.data = data;
-    }
 
     @Override
     public String toString() {

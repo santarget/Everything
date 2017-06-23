@@ -13,5 +13,4 @@ import rx.Observable;
 
 public interface INewsModel extends BaseModel {
     Observable<ArrayList<NewsInfo>> getNetworkData(String type);
-
 }
