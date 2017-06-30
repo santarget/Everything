@@ -4,8 +4,6 @@ import com.ssy.everything.network.api.GankApi;
 import com.ssy.everything.network.api.NewsApi;
 
 import okhttp3.OkHttpClient;
-import retrofit2.CallAdapter;
-import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -229,6 +229,6 @@ public class NewsActivity extends BaseActivity implements IGirlView {
 
     @Override
     public void showNetGirl(String imgUrl) {
-        Glide.with(this).load(imgUrl).dontAnimate().into(ivBanner);
+        Glide.with(this).load(imgUrl).error(R.mipmap.defaut_avatar).dontAnimate().into(ivBanner);
     }
 }

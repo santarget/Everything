@@ -5,7 +5,7 @@ package com.ssy.everything.common;
  */
 
 public class Constants {
-    /**
+    /*
      * news
      */
     public static final String APPKEY_NEWS = "adc8bb76f4c2ba3753f73a327618144f";
@@ -20,7 +20,7 @@ public class Constants {
     public static final String NEWS_CAIJING = "caijing";
     public static final String NEWS_SHISHANG = "shishang";
 
-    /**
+    /*
      * bugly
      */
     public static final String BUGLY_APP_ID = "67e3184fc4";

@@ -21,7 +21,7 @@ import rx.Observable;
 public interface GankApi {
 
     @GET("data/{category}/{number}/{page}")
-    Observable<NewsInfo> getCategoryDate(@Path("category") String category, @Path("number") int number, @Path("page") int page);
+    Observable<GankResult> getCategoryDate(@Path("category") String category, @Path("number") int number, @Path("page") int page);
 
     @GET("random/data/福利/{number}")
     Observable<GankResult> getRandomBeauties(@Path("number") int number);
