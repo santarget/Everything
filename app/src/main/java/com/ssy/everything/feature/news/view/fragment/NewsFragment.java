@@ -2,10 +2,10 @@ package com.ssy.everything.feature.news.view.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -36,6 +36,7 @@ public class NewsFragment extends BaseLazyFragment implements INewsView {
 
     private NewsPresenter newsPresenter;
     private NewsAdapter adapter;
+    private boolean isLoadingMore;
 
     public NewsFragment setType(String type) {
         if (StringUtils.isEmpty(type)) {
@@ -80,6 +81,7 @@ public class NewsFragment extends BaseLazyFragment implements INewsView {
     @Override
     public void showMoreData(ArrayList<NewsInfo> newsInfos) {
         adapter.setNewsInfos(newsInfos, true);
+        isLoadingMore = false;
     }
 
     @Override
@@ -120,9 +122,7 @@ public class NewsFragment extends BaseLazyFragment implements INewsView {
             @Override
             public void onItemClick(View view, NewsInfo info) {
                 Intent intent = new Intent(activity, NewsDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("news", info);
-                intent.putExtras(bundle);
+                intent.putExtra("news", info);
                 activity.startActivity(intent);
             }
         });
@@ -148,13 +148,14 @@ public class NewsFragment extends BaseLazyFragment implements INewsView {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItemPosition = ((LinearLayoutManager) (recyclerView.getLayoutManager())).findLastVisibleItemPosition();
                 if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
-
-                    boolean isRefreshing = srlRoot.isRefreshing();
-                    if (isRefreshing) {
-                        adapter.notifyItemRemoved(adapter.getItemCount());
-                        return;
+                    if (dy == 0) {
+                        recyclerView.removeView(recyclerView.getChildAt(adapter.getItemCount() - 1));
+//                        adapter.notifyItemRemoved(adapter.getItemCount() - 1);
+                    } else if (!isLoadingMore) {
+                        isLoadingMore = true;
+                        newsPresenter.loadMore();
                     }
-                    newsPresenter.loadMore();
+
                 }
             }
         });

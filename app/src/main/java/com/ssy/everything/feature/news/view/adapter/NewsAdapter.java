@@ -137,7 +137,6 @@ public class NewsAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return newsInfos.size() == 0 ? 0 : newsInfos.size() + 1;
-
     }
 
     @Override
