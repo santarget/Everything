@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -46,5 +47,13 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'cn.bingoogolapple:bga-swipebacklayout:1.0.8@aar'//右滑退出
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-2'//下拉刷新框架
+    //数据库
+    compile'org.greenrobot:greendao:3.0.1'
+    compile'org.greenrobot:greendao-generator:3.0.0'
 
+}
+greendao {
+    schemaVersion 1
+    daoPackage 'com.ssy.greendao.gen'
+    targetGenDir 'src/main/java'
 }

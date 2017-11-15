@@ -1,5 +1,6 @@
 package com.ssy.everything.feature.news.model.impl;
 
+import com.ssy.everything.EverythingApplication;
 import com.ssy.everything.bean.NewsInfo;
 import com.ssy.everything.bean.NewsResponse;
 import com.ssy.everything.common.Constants;
@@ -29,6 +30,10 @@ public class NewsModel implements INewsModel {
                         return newsResponse.result.data;
                     }
                 });
+    }
+
+    public void  insert(){
+        EverythingApplication.getInstance().getDaoSession().loadAll(NewsInfo.class);
     }
 }
 
