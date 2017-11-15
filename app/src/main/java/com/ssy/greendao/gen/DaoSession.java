@@ -8,9 +8,11 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
+import com.ssy.everything.bean.GankBean;
 import com.ssy.everything.bean.NewsInfo;
 import com.ssy.everything.bean.UserInfo;
 
+import com.ssy.greendao.gen.GankBeanDao;
 import com.ssy.greendao.gen.NewsInfoDao;
 import com.ssy.greendao.gen.UserInfoDao;
 
@@ -23,9 +25,11 @@ import com.ssy.greendao.gen.UserInfoDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig gankBeanDaoConfig;
     private final DaoConfig newsInfoDaoConfig;
     private final DaoConfig userInfoDaoConfig;
 
+    private final GankBeanDao gankBeanDao;
     private final NewsInfoDao newsInfoDao;
     private final UserInfoDao userInfoDao;
 
@@ -33,22 +37,32 @@ public class DaoSession extends AbstractDaoSession {
             daoConfigMap) {
         super(db);
 
+        gankBeanDaoConfig = daoConfigMap.get(GankBeanDao.class).clone();
+        gankBeanDaoConfig.initIdentityScope(type);
+
         newsInfoDaoConfig = daoConfigMap.get(NewsInfoDao.class).clone();
         newsInfoDaoConfig.initIdentityScope(type);
 
         userInfoDaoConfig = daoConfigMap.get(UserInfoDao.class).clone();
         userInfoDaoConfig.initIdentityScope(type);
 
+        gankBeanDao = new GankBeanDao(gankBeanDaoConfig, this);
         newsInfoDao = new NewsInfoDao(newsInfoDaoConfig, this);
         userInfoDao = new UserInfoDao(userInfoDaoConfig, this);
 
+        registerDao(GankBean.class, gankBeanDao);
         registerDao(NewsInfo.class, newsInfoDao);
         registerDao(UserInfo.class, userInfoDao);
     }
     
     public void clear() {
+        gankBeanDaoConfig.getIdentityScope().clear();
         newsInfoDaoConfig.getIdentityScope().clear();
         userInfoDaoConfig.getIdentityScope().clear();
+    }
+
+    public GankBeanDao getGankBeanDao() {
+        return gankBeanDao;
     }
 
     public NewsInfoDao getNewsInfoDao() {

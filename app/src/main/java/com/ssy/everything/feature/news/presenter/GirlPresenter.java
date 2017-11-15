@@ -1,9 +1,12 @@
 package com.ssy.everything.feature.news.presenter;
 
+import com.ssy.everything.EverythingApplication;
 import com.ssy.everything.base.BasePresenter;
-import com.ssy.everything.bean.GankResult;
+import com.ssy.everything.bean.response.GankResult;
 import com.ssy.everything.feature.news.model.impl.GirlModel;
 import com.ssy.everything.feature.news.view.iview.IGirlView;
+import com.ssy.greendao.gen.DaoMaster;
+import com.ssy.greendao.gen.DaoSession;
 
 import rx.Observer;
 import rx.Subscription;
@@ -61,5 +64,6 @@ public class GirlPresenter implements BasePresenter {
                     }
                 });
         mSubscriptions.add(subscription);
+        EverythingApplication.getInstance().getDaoSession().getGankBeanDao();
     }
 }

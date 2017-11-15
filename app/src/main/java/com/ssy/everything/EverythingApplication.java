@@ -18,7 +18,8 @@ import java.io.InputStream;
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
 
 /**
- * Created by ssy on 2017/5/19.
+ * @author ssy
+ * @date 2017/5/19
  */
 
 public class EverythingApplication extends Application {
@@ -35,7 +36,8 @@ public class EverythingApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_APP_ID, true);//true 开启调试模式
+        //true 开启调试模式
+        CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_APP_ID, true);
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
         //初始化滑动返回

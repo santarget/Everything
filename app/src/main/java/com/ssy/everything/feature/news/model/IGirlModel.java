@@ -1,7 +1,7 @@
 package com.ssy.everything.feature.news.model;
 
 import com.ssy.everything.base.BaseModel;
-import com.ssy.everything.bean.GankResult;
+import com.ssy.everything.bean.response.GankResult;
 
 import rx.Observable;
 

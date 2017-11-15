@@ -1,6 +1,6 @@
 package com.ssy.everything.feature.news.model.impl;
 
-import com.ssy.everything.bean.GankResult;
+import com.ssy.everything.bean.response.GankResult;
 import com.ssy.everything.feature.news.model.IGirlModel;
 import com.ssy.everything.network.NetWork;
 

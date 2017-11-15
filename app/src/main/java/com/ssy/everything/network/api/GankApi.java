@@ -1,6 +1,6 @@
 package com.ssy.everything.network.api;
 
-import com.ssy.everything.bean.GankResult;
+import com.ssy.everything.bean.response.GankResult;
 import com.ssy.everything.bean.NewsInfo;
 
 import java.util.HashMap;

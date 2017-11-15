@@ -1,4 +1,4 @@
-package com.ssy.everything.bean;
+package com.ssy.everything.bean.response;
 
 /**
  * Created by ssy on 2017/6/6.

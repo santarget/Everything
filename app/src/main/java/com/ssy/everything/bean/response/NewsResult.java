@@ -1,4 +1,6 @@
-package com.ssy.everything.bean;
+package com.ssy.everything.bean.response;
+
+import com.ssy.everything.bean.NewsInfo;
 
 import java.util.ArrayList;
 
