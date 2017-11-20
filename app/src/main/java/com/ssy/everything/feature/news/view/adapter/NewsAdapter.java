@@ -29,10 +29,12 @@ public class NewsAdapter extends RecyclerView.Adapter {
     private static final int TYPE_ONE_PIC = 2;
     private static final int TYPE_THREE_PIC = 3;
     private static final int TYPE_AD = 4;
+    private static final int TYPE_FOOTER_NO_MORE_DATA = 5;
 
     private final Context context;
     private ArrayList<NewsInfo> newsInfos;
     private OnRecyclerViewItemClickListener mOnItemClickListener;
+    private boolean noMoreData;
 
     public static interface OnRecyclerViewItemClickListener {
         void onItemClick(View view, NewsInfo info);
@@ -92,6 +94,10 @@ public class NewsAdapter extends RecyclerView.Adapter {
                 view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_2, parent, false);
                 holder = new ViewHolderAd(view);
                 break;
+            case TYPE_FOOTER_NO_MORE_DATA:
+                view = LayoutInflater.from(context).inflate(R.layout.footer_view_no_more_data, parent, false);
+                holder = new FootViewHolder(view);
+                break;
             default:
                 break;
 
@@ -142,7 +148,11 @@ public class NewsAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         if (position + 1 == getItemCount()) {
-            return TYPE_FOOTER;
+            if (noMoreData) {
+                return TYPE_FOOTER_NO_MORE_DATA;
+            } else {
+                return TYPE_FOOTER;
+            }
         } else {
             NewsInfo info = newsInfos.get(position);
             if (StringUtils.isEmpty(info.thumbnail_pic_s)) {
@@ -154,6 +164,10 @@ public class NewsAdapter extends RecyclerView.Adapter {
             }
         }
 
+    }
+
+    public void setNoMoreData(boolean noMoreData) {
+        this.noMoreData = noMoreData;
     }
 
     private void loadImage(String url, ImageView iv) {

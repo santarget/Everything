@@ -32,6 +32,7 @@ public class NewsPresenter implements BasePresenter {
     private long lastLoadTimeStamp;//控制频繁刷新的变量
 
     private CompositeSubscription mSubscriptions;
+    private int loadMoreCount;//加载更多次数，超过3次显示无更多数据
 
     public NewsPresenter(INewsView iNewsView, String type) {
         newsModel = new NewsModel();
@@ -140,6 +141,10 @@ public class NewsPresenter implements BasePresenter {
      * 上拉加载更多
      */
     public void loadMore() {
+        if (loadMoreCount++ > 2) {
+            iNewsView.showNoMoreData();
+            return;
+        }
         Subscription subscription = Observable.just(newsInfoList.get(0), newsInfoList.get(1), newsInfoList.get(2))
                 .subscribeOn(Schedulers.newThread())
                 .delay(1, TimeUnit.SECONDS)

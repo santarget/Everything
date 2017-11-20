@@ -37,6 +37,7 @@ public class NewsFragment extends BaseLazyFragment implements INewsView {
     private NewsPresenter newsPresenter;
     private NewsAdapter adapter;
     private boolean isLoadingMore;
+    private boolean noMoreData;
 
     public NewsFragment setType(String type) {
         if (StringUtils.isEmpty(type)) {
@@ -82,6 +83,13 @@ public class NewsFragment extends BaseLazyFragment implements INewsView {
     public void showMoreData(ArrayList<NewsInfo> newsInfos) {
         adapter.setNewsInfos(newsInfos, true);
         isLoadingMore = false;
+    }
+
+    @Override
+    public void showNoMoreData() {
+        noMoreData = true;
+        adapter.setNoMoreData(true);
+        adapter.notifyItemChanged(adapter.getItemCount());
     }
 
     @Override
@@ -146,6 +154,9 @@ public class NewsFragment extends BaseLazyFragment implements INewsView {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                if (noMoreData) {
+                    return;
+                }
                 int lastVisibleItemPosition = ((LinearLayoutManager) (recyclerView.getLayoutManager())).findLastVisibleItemPosition();
                 if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
                     if (dy == 0) {
